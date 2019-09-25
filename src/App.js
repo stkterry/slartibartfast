@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h>Header Bit</h>
+        <h1>Header Bit</h1>
       </header>
         <ViewAnim />
         <ViewScene />

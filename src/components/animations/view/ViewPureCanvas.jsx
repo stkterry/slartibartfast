@@ -7,15 +7,15 @@ class ViewPureCanvas extends React.Component {
   }
 
   render() {
-    const ref = node => node ? this.props.ctxRef(node.getContext('webgl')) : null
+    const ref = node => node ? this.props.ctxRef(node.getContext('2d')) : null
     if (!ref) {
       alert("Unable to initialize WebGL. Your browser or machine may not support it.");
       return;
     }
     return (
       <canvas
-        width="640"
-        height="480"
+        width="500"
+        height="500"
         id="view-pure-canvas"
         className="canvas"
         ref={ref}
