@@ -3,7 +3,7 @@ import * as BABYLON from "babylonjs";
 import * as PROCEDURAL from "babylonjs-procedural-textures";
 import SceneCanvas from "./SceneCanvas";
 
-import { bMap } from "../../libs/heightMap/randSimplexMap";
+import { bMap, bPerlinMap } from "../../libs/heightMap/randSimplexMap";
 
 const PI = Math.PI;
 
@@ -39,9 +39,9 @@ class SceneView extends React.Component {
     // sphere.position.y = 1;
 
     // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
-    let ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 32, scene, true);
-    let map = bMap(0.05, 128, 128);
-    ground.applyDisplacementMapFromBuffer(map, 128, 128, -5, 5);
+    let ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 64, scene, true);
+    let map = bPerlinMap(0.05, 128, 128);
+    ground.applyDisplacementMapFromBuffer(map, 128, 128, -10, 10);
 
     let groundMat = new BABYLON.StandardMaterial("ground-mat", scene);
     let groundDiff = new PROCEDURAL.GrassProceduralTexture("grass", 256, scene);
