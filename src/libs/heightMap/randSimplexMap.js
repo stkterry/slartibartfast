@@ -1,13 +1,13 @@
 
 import oSimplex from "../noise/open_simplex";
 const oplex = new oSimplex();
-oplex.seed();
+oplex.seed(11);
 oplex.setup2D();
 // import cPerlin from "../noise/cperlin";
 // const cper = new cPerlin();
 // cper.noiseSeed(11);
 
-export const randMap = (scaleFac, width, height) => {
+export const iMap = (scaleFac, width, height) => {
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
 
@@ -44,8 +44,7 @@ export const randMap = (scaleFac, width, height) => {
   return image;
 }
 
-export const randMap2 = (scaleFac, width, height) => {
-
+export const bMap = (scaleFac, width, height) => {
   let buffer = new Uint8ClampedArray(width * height * 4);
 
   let pos, noisyBit;
