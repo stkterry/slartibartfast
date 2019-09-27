@@ -1,6 +1,6 @@
 
 import oSimplex from "../noise/open_simplex";
-import cPerlin from "../noise/cperlin";
+import cPerlin from "../noise/cperlin2";
 const oplex = new oSimplex();
 oplex.seed(11);
 oplex.setup2D();
@@ -47,17 +47,17 @@ export const iMap = (scaleFac, width, height) => {
 }
 
 export const bMap = (scaleFac, width, height) => {
-  let buffer = new Uint8ClampedArray(width * height * 4);
+  let buffer = new Uint8ClampedArray((width) * (height) * 3);
 
   let pos, noisyBit;
   for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      pos = (y * width + x) * 4;
+    for (let x = 0; x < width+2; x++) {
+      pos = (y * width + x) * 3;
       noisyBit = 256 * (oplex.noise2D(y * scaleFac, x * scaleFac) + 0.864) / 1.728;
       buffer[pos] = noisyBit;
       buffer[pos + 1] = noisyBit;
       buffer[pos + 2] = noisyBit;
-      buffer[pos + 3] = 255;
+      // buffer[pos + 3] = 255;
     }
   }
 
@@ -65,21 +65,20 @@ export const bMap = (scaleFac, width, height) => {
 }
 
 export const bPerlinMap = (scaleFac, width, height) => {
-  let buffer = new Uint8ClampedArray(width * height * 4);
-  let fac = Math.sqrt(0.5);
-  let fac2 = fac*2;
+  let buffer = new ArrayBuffer(width * height * 4);
+  let view = new Uint8Array(buffer);
+
   let pos, noisyBit;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       pos = (y * width + x) * 4;
-      noisyBit = 256 * cper.noise(1 + y * scaleFac, 1 + x * scaleFac) ;
-      // console.log(noisyBit)
-      buffer[pos] = noisyBit;
-      buffer[pos + 1] = noisyBit;
-      buffer[pos + 2] = noisyBit;
-      buffer[pos + 3] = 255;
+      noisyBit = 255 * cper.noise(1 + y * scaleFac, 1 + x * scaleFac) ;
+      view[pos] = noisyBit;
+      view[pos + 1] = noisyBit;
+      view[pos + 2] = noisyBit;
+      view[pos + 3] = 255;
     }
   }
 
-  return buffer;
+  return view;
 }

@@ -11,8 +11,6 @@ export default class cPerlin {
     this.octaves = 4; // meh
     this.falloff = 0.5; // half
 
-    // this.perlin;
-      
   }
 
   _sclCos(i) {
@@ -23,12 +21,12 @@ export default class cPerlin {
     y = y || 0;
     z = z || 0;
 
-    if (this.perlin == null) {
-      this.perlin = new Array(this.SIZE + 1).fill(0);
-      this.perlin = this.perlin.map(el => Math.random());
+    if (this.perlin === null) {
+      this.perlin = new Array(this.SIZE + 1);
+      for (let i = 0; i < this.SIZE + 1; i++) this.perlin[i] = Math.random();
     }
 
-    [x, y, z] = [x, y, z].map(dim => { return (dim < 0) ? -dim : dim });
+    [x, y, z] = [x, y, z].map(dim => (dim < 0) ? -dim : dim);
     let [xi, yi, zi] = [x, y, z].map(dim => Math.floor(dim));
     let [xf, yf, zf] = [x - xi, y - yi, z - zi];
     let rxf, ryf;
@@ -99,7 +97,7 @@ export default class cPerlin {
 
       return {
         setSeed: function(val) {
-          z = seed = (val == null ? Math.random() * m : val) >>> 0;
+          z = seed = (val === null ? Math.random() * m : val) >>> 0;
         },
         getSeed: function() {
           return seed;
@@ -113,9 +111,8 @@ export default class cPerlin {
     })();
 
     lcg.setSeed(seed);
-    this.perlin = new Array(this.SIZE + 1).fill(0);
-    this.perlin = this.perlin.map(el => lcg.rand());
-
+    this.perlin = new Array(this.SIZE + 1);
+    for (let i = 0; i < this.SIZE + 1; i++) this.perlin[i] = lcg.rand();
   };
 
 };
